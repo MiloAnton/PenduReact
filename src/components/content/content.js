@@ -11,6 +11,7 @@ export default function Content() {
     const [guessed, setGuessed] = useState("");
     const {theme} = useContext(ThemeContext);
     const fetchWord = async () => {
+        setGOver(false);
         fetch(`https://animalfinderapi.herokuapp.com/word`)
             .then(response => response.json())
             .then(json => handleData(json.data.word));
@@ -72,7 +73,7 @@ export default function Content() {
             {theme}
             <p>You got {lives} lives left</p>
             <p>{prettyGuessed(guessed)}</p>
-            {GOver ? <p>Sale merde</p> : <p>Partie en cours</p> }
+            {GOver ? <p>SsélafinDuJeu</p> : <p>Partie en cours</p> }
             <input 
                 value="" 
                 type="text" 
