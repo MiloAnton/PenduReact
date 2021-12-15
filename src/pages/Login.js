@@ -6,9 +6,12 @@ import { Link } from "react-router-dom";
 import BtnToggle from '../components/BtnToggle/BtnToggle';
 import { ThemeContext } from "../context/ThemeContext";
 import React, { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function App() {
     const {theme} = useContext(ThemeContext);
+    const navigate = useNavigate();
+    const play = () => navigate('/play');
   return (
     <div className={theme ? 'contenu light ' : 'contenu dark'}>
         <BtnToggle />
@@ -16,9 +19,7 @@ function App() {
         <h1>
           ✨Welcome to <b>Pendu Paradise</b>✨
         </h1>
-        <Button value={"Nikoto"}>
-            <Link to="/play"></Link>
-        </Button>
+        <Button value={"Nikoto"} onClick={play}/>
     </div>
   );
 }
