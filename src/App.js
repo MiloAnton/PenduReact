@@ -1,16 +1,19 @@
 import './App.css';
-import Content from './components/content/content';
-import ThemeContextProvider from './context/ThemeContext';
-import BtnToggle from './components/BtnToggle/BtnToggle';
+import Game from './pages/Game';
+import Login from './pages/Login';
+import Stats from './pages/Stats';
+
+import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-          <ThemeContextProvider>
-            <BtnToggle />
-            <Content />
-          </ThemeContextProvider>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path='/play' element={<Game/>}/>
+        <Route exact path='/' element={<Login/>}/>
+        <Route exact path='/statistics' element={<Stats/>}/>
+      </Routes>
+    </Router>
   );
 }
 export default App;
