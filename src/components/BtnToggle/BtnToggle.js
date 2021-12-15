@@ -11,7 +11,7 @@ export default function BtnToggle() {
         onClick={toggleTheme}
         className={theme ? 'btn-toggle light' : 'btn-toggle dark'}
         >
-            {theme ? "Dark" : "Light"}
+            {theme ? "🌙" : "🌞"}
         </div>
     )
 }

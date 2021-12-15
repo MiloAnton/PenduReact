@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import './content.css';
 import { ThemeContext } from "../../context/ThemeContext";
 import Button from "../Button";
+import DisplayCard from "../cardScores";
 
 export default function Content() {
     const {theme} = useContext(ThemeContext);
@@ -10,16 +11,11 @@ export default function Content() {
             .then(response => response.json())
             .then(json => console.log(json.data.word));
     }
-    // const fetchScore = async () => {
-    //     fetch(`https://animalfinderapi.herokuapp.com/score`)
-    //         .then(response => response.json())
-    //         .then(json => console.log(json.data));
-    // }
-    const [score, setscore] = useState(undefined)
+    const [score, setscore] = useState([])
     useEffect(() => {
         (async()=>{
             const newScore = await getScore()
-            setscore(newScore)
+            setscore(newScore.data)
         })()
         return () => {}
     },[])
@@ -31,7 +27,6 @@ export default function Content() {
 
         return <p>Waiting</p>
     }
-    console.log(score)
     return (
         <div className={theme ? 'contenu light ' : 'contenu dark'}>
             <h1>Trouveur d'animaux</h1>
@@ -42,12 +37,9 @@ export default function Content() {
             >
                 <Button value={'Fetch new word'} onClick={() => fetchWord()}/>
             </div>
-            <p>{score.data.map(result => 
+            <p>{score.map((result, index) => 
                 <div>
-                    <p>#{result.position}</p>
-                    <p>{result.username}</p>
-                    <p>{result.score}</p> 
-                    <img src= {result.avatar}/>
+                    <DisplayCard position={result.position} username={result.username} score={result.score}/>
                 </div>
             )}</p>
         </div>
