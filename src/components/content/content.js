@@ -5,6 +5,8 @@ import Button from "../Button";
 import NavButtons from "../navButtons";
 
 export default function Content() {
+    const [lives, setLives] = useState(10);
+    const [GOver, setGOver] = useState(false);
     const [motadev, setMotadev] = useState("");
     const [guessed, setGuessed] = useState("");
     const {theme} = useContext(ThemeContext);
@@ -13,11 +15,13 @@ export default function Content() {
             .then(response => response.json())
             .then(json => handleData(json.data.word));
     }
+
     function handleData(joliMot) {
         setMotadev(joliMot);
         setGuessed(hideWord(joliMot));
         console.log(joliMot);
     }
+
     function hideWord(str) {
         let hidden = '';
         for(let i = 0; i < str.length; i++){
@@ -25,6 +29,7 @@ export default function Content() {
         }
         return hidden;
     }
+
     function prettyGuessed() {
         let output = '';
         for(let i = 0; i < guessed.length; i++){
@@ -32,31 +37,47 @@ export default function Content() {
         }
         return output;
     }
-    function compareWords(charToCompare) {
+
+    function compareW(charToCompare) {
         let temp = guessed;
+        let bravo = false;
         for(let i = 0; i < motadev.length; i++){
             if(motadev[i].toUpperCase() === charToCompare.toUpperCase()){
                temp = setCharAt(temp, i, charToCompare);
+               bravo = true;
+            } 
+        }
+        if (temp.toUpperCase() == motadev.toUpperCase()) {
+            setGOver(true);
+        }
+        if (!bravo) {
+            if(lives - 1 <= 0) {
+                setGOver(true);
             }
+            setLives(lives - 1);
         }
         setGuessed(temp);
     }
+
     function setCharAt(str,index,chr) {
         if(index > str.length-1) return str;
         return str.substring(0,index) + chr + str.substring(index+1);
     }
+
     return (
         <div className={theme ? 'contenu light ' : 'contenu dark'}>
             <h1>Trouveur d'animaux</h1>
             <p>Trouve dont l'animal qu'est caché et engrange des points</p>
             <NavButtons /><Button value={'🔁'} onClick={() => fetchWord()}/>
             {theme}
+            <p>You got {lives} lives left</p>
             <p>{prettyGuessed(guessed)}</p>
+            {GOver ? <p>Sale merde</p> : <p>Partie en cours</p> }
             <input 
                 value="" 
                 type="text" 
                 placeholder="a"
-                onChange={(event) => compareWords(event.target.value)}
+                onChange={(event) => compareW(event.target.value)}
                 style={{
                     width:"15px"
                 }}
