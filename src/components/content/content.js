@@ -48,7 +48,7 @@ export default function Content() {
                bravo = true;
             } 
         }
-        if (temp.toUpperCase() == motadev.toUpperCase()) {
+        if (temp.toUpperCase() === motadev.toUpperCase()) {
             setGOver(true);
         }
         if (!bravo) {
