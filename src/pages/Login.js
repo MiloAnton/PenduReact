@@ -5,7 +5,7 @@ import Button from './../components/Button';
 import { Link } from "react-router-dom";
 import BtnToggle from '../components/BtnToggle/BtnToggle';
 import { ThemeContext } from "../context/ThemeContext";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 function App() {
     const {theme} = useContext(ThemeContext);
