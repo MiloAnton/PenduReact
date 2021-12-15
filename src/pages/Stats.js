@@ -25,12 +25,16 @@ export default function Content() {
     }
     return (
         <div className={theme ? 'contenu light ' : 'contenu dark'}>
-            <h1>Statistiques et classement mondial</h1>
+            <h1>Statistiques et classement</h1>
             <p>Si t'es dans le top t'es beau</p>
             <BtnToggle />
             <NavButtons />
             <p>{score.map((result, index) => 
-                <div>
+                <div 
+                style={{
+                    border: "5px solid transparent",
+                    display: "inline-block"
+                }}>
                     <DisplayCard position={result.position} username={result.username} score={result.score}/>
                 </div>
             )}</p>
